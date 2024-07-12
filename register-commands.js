@@ -27,12 +27,14 @@ const rest = new REST().setToken(process.env.TOKEN);
 
 (async () => {
     try {
-        console.log(`Refreshing ${commands.length} slash (/) commands`)
+        console.log(`Refreshing ${commands.length} application (/) commands`)
 
         const data = await rest.put(
             Routes.applicationCommands(process.env.CLIENT_ID),
             { body: commands },
         )
+
+        console.log(`Reloaded ${data.length} application (/) commands`)
     } catch(err) {
         console.error(err)
     }
