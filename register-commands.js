@@ -23,7 +23,7 @@ for (const category of fs.readdirSync(commandsPath)) {
     }
 }
 
-const rest = new REST().setToken(process.env.TOKEN)
+const rest = new REST().setToken(process.env.TOKEN);
 
 (async () => {
     try {
