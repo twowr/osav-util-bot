@@ -11,7 +11,7 @@ const commandsPath = path.join(__dirname, "commands")
 for (const category of fs.readdirSync(commandsPath)) {
     const categoryPath = path.join(commandsPath, category)
     const commandFiles = fs.readdirSync(categoryPath).filter(file => file.endsWith(".js"))
-    for (const commandFile in commandFiles) {
+    for (const commandFile of commandFiles) {
         const commandPath = path.join(categoryPath, commandFile)
         const command = require(commandPath)
 
