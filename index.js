@@ -104,8 +104,6 @@ function refreshRateLimit() {
             user.warned = false
         })
     }
-
-    setInterval(refreshRateLimit, 60000)
 }
 
 setInterval(refreshRateLimit, 60000)
