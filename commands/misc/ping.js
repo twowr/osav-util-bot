@@ -7,7 +7,7 @@ module.exports = {
     async execute(interaction) {
         await interaction.reply("pong")
     },
-    async textExecute(interaction) {
+    async textExecute(interaction, _args) {
         await this.execute(interaction)
     }
 }

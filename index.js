@@ -12,7 +12,7 @@ const client = new Client({ intents: [
 
 client.TEXT_COMMAND_PREFIX = "w!"
 client.commands = new Collection()
-client.execCommand = async (commandName, interaction, textMode) => {
+client.execCommand = async (commandName, interaction, textCommandArgs) => {
     const command = interaction.client.commands.get(commandName)
 
     if (!command) {
@@ -20,7 +20,7 @@ client.execCommand = async (commandName, interaction, textMode) => {
         return;
     }
 
-    if (textMode) {
+    if (!textCommandArgs) {
         try {
             await command.execute(interaction)
         } catch(error) {
@@ -33,7 +33,7 @@ client.execCommand = async (commandName, interaction, textMode) => {
         }
     } else {
         try {
-            await command.textExecute(interaction)
+            await command.textExecute(interaction, textCommandArgs)
         } catch(error) {
             console.error(error)
             if (interaction.replied || interaction.deferred) {
@@ -79,7 +79,7 @@ client.on(Events.MessageCreate, message => {
 
     console.log(`Command "${commandName}" received`)
 
-    message.client.execCommand(commandName, message, true)
+    message.client.execCommand(commandName, message, args)
 })
 
 client.login(process.env.TOKEN)
