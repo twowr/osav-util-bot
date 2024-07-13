@@ -57,6 +57,10 @@ client.execCommand = async (commandName, interaction, textCommandArgs) => {
             interaction.client.rateLimit.set(sender.id, user)
             interaction.reply(`you are being rate limited (${interaction.client.COMMAND_PER_MINUTE} commands per minutes)`)
         }
+
+        if (user.count > interaction.client.COMMAND_PER_MINUTE) {
+            return
+        }
     } else {
         interaction.client.rateLimit.set(sender.id, { count: 1, warned: false })
     }
