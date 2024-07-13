@@ -45,16 +45,17 @@ client.execCommand = async (commandName, interaction, textCommandArgs) => {
     let sender = interaction.author === undefined ? interaction.user : interaction.author
     if (interaction.client.rateLimit.has(sender.id)) {
         let user = interaction.client.rateLimit.get(sender.id)
+
+        if (user.count > interaction.client.COMMAND_PER_MINUTE) {
+            return
+        }
+
         user.count += 1
         interaction.client.rateLimit.set(sender.id, user)
         if (user.count > interaction.client.COMMAND_PER_MINUTE && user.warned == false) {
             user.warned = true
             interaction.client.rateLimit.set(sender.id, user)
             interaction.reply(`you are being rate limited (${interaction.client.COMMAND_PER_MINUTE} commands per minutes)`)
-        }
-
-        if (user.count > interaction.client.COMMAND_PER_MINUTE) {
-            return
         }
     } else {
         interaction.client.rateLimit.set(sender.id, { count: 1, warned: false })
