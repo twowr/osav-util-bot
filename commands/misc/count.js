@@ -14,8 +14,8 @@ module.exports = {
         }
         
         await interaction.reply(`\`${sender.username}\`'s current count: ${interaction.client.storage.get(sender.id).toString()}`)
-        if (interaction.client.storage.get(sender.id) == 727) {
-            await interaction.followUp("WYSI WYFSI!!!")
+        if (interaction.client.storage.get(sender.id).toString().includes("727")) {
+            await interaction.reply("WYSI WYFSI!!!");
         }
     },
     async textExecute(interaction, _args) {
