@@ -10,6 +10,32 @@ const client = new Client({ intents: [
     GatewayIntentBits.MessageContent,
 ] })
 
+client.storage = ({
+    init: () => {
+        this.path = path.join(__dirname, "storage.dat")
+
+        this.get = key => {
+            let data = JSON.parse(fs.readFileSync(this.path).toString())
+            if (key in data) {
+                return data[key]
+            } else {
+                throw new Error(`Key value ${key} doesn't exist in ${path}`)
+            }
+        }
+
+        this.set = (key, value) => {
+            let data = JSON.parse(fs.readFileSync(this.path).toString())
+            data[key] = value
+            fs.writeFileSync(this.path, JSON.stringify(data))
+        }
+
+        this.has = key => {
+            let data = JSON.parse(fs.readFileSync(this.path).toString())
+            return data.hasOwnProperty(key)
+        }
+        return this
+    },
+}).init()
 client.TEXT_COMMAND_PREFIX = "w!"
 client.commands = new Collection()
 client.execCommand = async (commandName, interaction, textCommandArgs) => {
