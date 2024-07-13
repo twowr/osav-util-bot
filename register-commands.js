@@ -15,8 +15,10 @@ for (const category of fs.readdirSync(commandsPath)) {
         const commandPath = path.join(categoryPath, commandFile)
         const command = require(commandPath)
 
-        if ("data" in command && "execute" in command) {
-            commands.push(command.data.toJSON())
+        if (("data" in command && "execute" in command) || ("data" in command && "textExecute" in command)) {
+            if ("data" in command && "execute" in command) {
+                commands.push(command.data.toJSON())
+            }
         } else {
             console.warn(`[WARNING] Command file at ${commandPath} is in the wrong format`)
         }

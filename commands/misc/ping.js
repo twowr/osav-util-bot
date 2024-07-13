@@ -6,5 +6,8 @@ module.exports = {
                 .setDescription("pong!"),
     async execute(interaction) {
         await interaction.reply("pong")
+    },
+    async textExecute(interaction) {
+        await this.execute(interaction)
     }
 }
