@@ -33,12 +33,33 @@ client.storage = ({
             let data = JSON.parse(fs.readFileSync(this.path).toString())
             return data.hasOwnProperty(key)
         }
+
         return this
     },
 }).init()
 client.TEXT_COMMAND_PREFIX = "w!"
+client.COMMAND_PER_MINUTE = 5
 client.commands = new Collection()
+client.rateLimit = new Collection()
 client.execCommand = async (commandName, interaction, textCommandArgs) => {
+    let sender = interaction.author === undefined ? interaction.user : interaction.author
+    if (interaction.client.rateLimit.has(sender.id)) {
+        let user = interaction.client.rateLimit.get(sender.id)
+        user.count += 1
+        interaction.client.rateLimit.set(sender.id, user)
+        if (user.count > interaction.client.COMMAND_PER_MINUTE && user.warned == false) {
+            user.warned = true
+            interaction.client.rateLimit.set(sender.id, user)
+            interaction.reply(`you are being rate limited (${interaction.client.COMMAND_PER_MINUTE} commands per minutes)`)
+        }
+
+        if (user.count > interaction.client.COMMAND_PER_MINUTE) {
+            return
+        }
+    } else {
+        interaction.client.rateLimit.set(sender.id, { count: 1, warned: false })
+    }
+
     const command = interaction.client.commands.get(commandName)
 
     if (!command) {
@@ -70,6 +91,19 @@ client.execCommand = async (commandName, interaction, textCommandArgs) => {
         }
     }
 }
+
+function refreshRateLimit() {
+    if (client.rateLimit.length > 0) {
+        client.rateLimit.forEach(user => {
+            user.rateCount = 0
+            user.warned = false
+        })
+    }
+
+    setInterval(refreshRateLimit, 60000)
+}
+
+setInterval(refreshRateLimit, 60000)
 
 const commandsPath = path.join(__dirname, "commands")
 
