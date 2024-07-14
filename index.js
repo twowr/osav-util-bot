@@ -19,7 +19,7 @@ client.storage = ({
             if (key in data) {
                 return data[key]
             } else {
-                throw new Error(`Key value ${key} doesn't exist in ${path}`)
+                throw new Error(`Key value ${key} doesn't exist in ${this.path}`)
             }
         }
 
@@ -38,7 +38,7 @@ client.storage = ({
     },
 }).init()
 client.TEXT_COMMAND_PREFIX = "w!"
-client.COMMAND_PER_MINUTE = 5
+client.COMMAND_PER_MINUTE = 10
 client.commands = new Collection()
 client.rateLimit = new Collection()
 client.execCommand = async (commandName, interaction, textCommandArgs) => {
