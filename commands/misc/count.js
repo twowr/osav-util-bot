@@ -12,7 +12,7 @@ module.exports = {
             countStorage = interaction.client.storage.get("countStorage")
         }
 
-        if (countStorage[sender.id]) {
+        if (countStorage[sender.id] !== undefined) {
             countStorage[sender.id] += 1
         } else {
             countStorage[sender.id] = 0
