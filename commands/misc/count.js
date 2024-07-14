@@ -6,15 +6,22 @@ module.exports = {
                 .setDescription("increase your count by 1"),
     async execute(interaction) {
         let sender = interaction.author === undefined ? interaction.user : interaction.author
-        if (interaction.client.storage.has(sender.id)) {
-            let previousValue = interaction.client.storage.get(sender.id)
-            interaction.client.storage.set(sender.id, previousValue + 1)
-        } else {
-            interaction.client.storage.set(sender.id, 0)
+
+        let countStorage = {}
+        if (interaction.client.storage.has("countStorage")) {
+            countStorage = interaction.client.storage.get("countStorage")
         }
+
+        if (countStorage[sender.id]) {
+            countStorage[sender.id] += 1
+        } else {
+            countStorage[sender.id] = 0
+        }
+
+        interaction.client.storage.set("countStorage", countStorage)
         
-        await interaction.reply(`\`${sender.username}\`'s current count: ${interaction.client.storage.get(sender.id).toString()}`)
-        if (interaction.client.storage.get(sender.id).toString().includes("727")) {
+        await interaction.reply(`\`${sender.username}\`'s current count: ${interaction.client.storage.get("countStorage")[sender.id].toString()}`)
+        if (interaction.client.storage.get("countStorage")[sender.id].toString().includes("727")) {
             await interaction.reply("WYSI WYFSI!!!");
         }
     },
