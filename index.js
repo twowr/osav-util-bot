@@ -37,8 +37,8 @@ client.storage = ({
         return this
     },
 }).init()
-client.TEXT_COMMAND_PREFIX = "w!"
-client.COMMAND_PER_MINUTE = 10
+client.TEXT_COMMAND_PREFIX = process.env.PREFIX
+client.COMMAND_PER_MINUTE = parseInt(process.env.COMMAND_PER_MINUTE)
 client.commands = new Collection()
 client.rateLimit = new Collection()
 client.execCommand = async (commandName, interaction, textCommandArgs) => {
