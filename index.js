@@ -98,7 +98,7 @@ client.execCommand = async (commandName, interaction, textCommandArgs) => {
 }
 
 function refreshRateLimit() {
-    if (client.rateLimit.length > 0) {
+    if (client.rateLimit.size > 0) {
         client.rateLimit.forEach(user => {
             user.rateCount = 0
             user.warned = false
