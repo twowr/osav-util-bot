@@ -39,10 +39,12 @@ client.storage = ({
 }).init()
 client.TEXT_COMMAND_PREFIX = process.env.PREFIX
 client.COMMAND_PER_MINUTE = parseInt(process.env.COMMAND_PER_MINUTE)
+client.timeStart = Math.floor(new Date() / 1000)
 client.commands = new Collection()
 client.rateLimit = new Collection()
 client.execCommand = async (commandName, interaction, textCommandArgs) => {
     let sender = interaction.author === undefined ? interaction.user : interaction.author
+
     if (interaction.client.rateLimit.has(sender.id)) {
         let user = interaction.client.rateLimit.get(sender.id)
 
@@ -55,7 +57,7 @@ client.execCommand = async (commandName, interaction, textCommandArgs) => {
         if (user.count > interaction.client.COMMAND_PER_MINUTE && user.warned == false) {
             user.warned = true
             interaction.client.rateLimit.set(sender.id, user)
-            interaction.reply(`you are being rate limited (${interaction.client.COMMAND_PER_MINUTE} commands per minutes)`)
+            interaction.reply(`you are being rate limited (${interaction.client.COMMAND_PER_MINUTE} commands per minutes)\nnext rate limit refresh is in <t:${Math.floor(new Date() / 1000) + (60 - ((Math.floor(new Date() / 1000) - interaction.client.timeStart) % 60))}:R>`)
         }
 
         if (user.count > interaction.client.COMMAND_PER_MINUTE) {
