@@ -70,7 +70,7 @@ module.exports = {
                             countStorage[sender.id].staticUpgrade += 7
                         } else {
                             countStorage[sender.id].staticUpgrade = 7
-                            countStorage[sender.id].upgradeEnable = false
+                            countStorage[sender.id].upgradeEnable = true
                         }
                         
                         interaction.client.storage.set("countStorage", countStorage)
