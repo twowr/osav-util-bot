@@ -330,7 +330,7 @@ module.exports = {
                 if (countStorage[sender.id].hasOwnProperty("staticUpgrade")) { text += `staticUpgrade: ${a[1]}\n` }
                 if (countStorage[sender.id].hasOwnProperty("autoUpgrade")) { text += `autoUpgrade: ${a[2].toFixed(2)}\n` }
                 if (countStorage[sender.id].hasOwnProperty("autoStart")) { text += `last auto claim: <t:${countStorage[sender.id].autoStart}:R>\n` }
-                if (countStorage[sender.id].hasOwnProperty("dynamic")) { text += `dynamic: +${a[4]} autoUpgrade(s)\n` }
+                if (countStorage[sender.id].hasOwnProperty("dynamic")) { text += `dynamic: +${a[4]} to auto\n` }
             } else {
                 text += "bro haven't even played the game yet"
             }
