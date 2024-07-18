@@ -208,11 +208,11 @@ module.exports = {
                         if (countStorage[sender.id].count >= price) {
                             countStorage[sender.id].count -= price
                             if (countStorage[sender.id].autoUpgrade !== undefined) {
-                                countStorage[sender.id].dynamic += Math.floor(countStorage[sender.id].staticUpgrade / 1000)
-                                countStorage[sender.id].autoUpgrade += Math.floor(countStorage[sender.id].staticUpgrade / 1000)
+                                countStorage[sender.id].dynamic += Math.floor(countStorage[sender.id].staticUpgrade / 100) / 10
+                                countStorage[sender.id].autoUpgrade += Math.floor(countStorage[sender.id].staticUpgrade / 100) / 10
                             } else {
-                                countStorage[sender.id].dynamic = Math.floor(countStorage[sender.id].staticUpgrade / 1000)
-                                countStorage[sender.id].autoUpgrade = Math.floor(countStorage[sender.id].staticUpgrade / 1000)
+                                countStorage[sender.id].dynamic = Math.floor(countStorage[sender.id].staticUpgrade / 100) / 10
+                                countStorage[sender.id].autoUpgrade = Math.floor(countStorage[sender.id].staticUpgrade / 100) / 10
                             }
 
                             countStorage[sender.id].staticUpgrade = 0
