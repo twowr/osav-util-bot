@@ -196,7 +196,7 @@ module.exports = {
                         let a = [
                             price,
                             countStorage[sender.id].staticUpgrade,
-                            Math.floor(countStorage[sender.id].staticUpgrade / 100),
+                            Math.floor(countStorage[sender.id].staticUpgrade / 1000),
                         ]
                         
                         a.forEach((value, index) => {
@@ -208,11 +208,11 @@ module.exports = {
                         if (countStorage[sender.id].count >= price) {
                             countStorage[sender.id].count -= price
                             if (countStorage[sender.id].autoUpgrade !== undefined) {
-                                countStorage[sender.id].dynamic += Math.floor(countStorage[sender.id].staticUpgrade / 100)
-                                countStorage[sender.id].autoUpgrade += Math.floor(countStorage[sender.id].staticUpgrade / 100)
+                                countStorage[sender.id].dynamic += Math.floor(countStorage[sender.id].staticUpgrade / 1000)
+                                countStorage[sender.id].autoUpgrade += Math.floor(countStorage[sender.id].staticUpgrade / 1000)
                             } else {
-                                countStorage[sender.id].dynamic = Math.floor(countStorage[sender.id].staticUpgrade / 100)
-                                countStorage[sender.id].autoUpgrade = Math.floor(countStorage[sender.id].staticUpgrade / 100)
+                                countStorage[sender.id].dynamic = Math.floor(countStorage[sender.id].staticUpgrade / 1000)
+                                countStorage[sender.id].autoUpgrade = Math.floor(countStorage[sender.id].staticUpgrade / 1000)
                             }
 
                             countStorage[sender.id].staticUpgrade = 0
