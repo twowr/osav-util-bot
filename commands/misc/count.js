@@ -196,7 +196,7 @@ module.exports = {
                         let a = [
                             price,
                             countStorage[sender.id].staticUpgrade,
-                            Math.floor(countStorage[sender.id].staticUpgrade / 1000),
+                            Math.floor(countStorage[sender.id].staticUpgrade / 100) /10,
                         ]
                         
                         a.forEach((value, index) => {
