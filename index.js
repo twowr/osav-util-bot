@@ -45,7 +45,7 @@ client.rateLimit = new Collection()
 client.execCommand = async (commandName, interaction, textCommandArgs) => {
     let sender = interaction.author === undefined ? interaction.user : interaction.author
 
-    if (JSON.parse(process.env.RATELIMIT)) {
+    if (JSON.parse(process.env.RATELIMIT) === true) {
         if (interaction.client.rateLimit.has(sender.id)) {
             let user = interaction.client.rateLimit.get(sender.id)
     
